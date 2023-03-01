@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 @Entity(name = "date_weather")
 public class DateWeather {
+
 	@Id
 	private LocalDate date;
 	private String weather;

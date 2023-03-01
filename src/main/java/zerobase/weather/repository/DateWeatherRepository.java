@@ -8,5 +8,6 @@ import zerobase.weather.domain.DateWeather;
 
 @Repository
 public interface DateWeatherRepository extends JpaRepository<DateWeather, LocalDate> {
+
 	List<DateWeather> findAllByDate(LocalDate date);
 }

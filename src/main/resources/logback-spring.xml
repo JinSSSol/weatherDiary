@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <!--  변수값 설정-->
+  <property name="LOGS_PATH" value="./logs"/>
+  <property name="LOGS_LEVEL" value="INFO"/>
+
+  <!-- console에 로그 -->
+  <appender name="STDOUT"
+    class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <!-- <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %40logger{0} - %C - %replace(%msg){'[\r\n]+',
+        ''} %n</Pattern> -->
+      <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</Pattern>
+    </layout>
+  </appender>
+
+  <!-- 로그 File에 저장 -->
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOGS_PATH}/log_file.log</file>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <Pattern>
+        %d{yyyy-MM-dd HH:mm:ss} %level [%logger] - %msg%n
+      </Pattern>
+      <charset>UTF-􏰳8</charset>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOGS_PATH}/%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+      <maxFileSize>5MB</maxFileSize>
+    </timeBasedFileNamingAndTriggeringPolicy>
+      <!-- 10건의 파일만 남기고 지난 로그파일은 삭제 된다. -->
+      <maxHistory>10</maxHistory>
+    </rollingPolicy>
+  </appender>
+
+  <appender name="Error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOGS_PATH}/error_file.log</file>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <Pattern>
+        %d{yyyy-MM-dd HH:mm:ss} %level [%logger] - %msg%n
+      </Pattern>
+      <charset>UTF-8􏰳</charset>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOGS_PATH}/%d{yyyy-MM-dd}_error_log</fileNamePattern>
+      <maxHistory>􏰬􏰫30</maxHistory>
+    </rollingPolicy>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+    </filter>
+  </appender>
+
+  <root level="${LOGS_LEVEL}">
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="Error"/>
+  </root>
+
+</configuration>

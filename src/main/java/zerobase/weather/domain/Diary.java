@@ -16,6 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class Diary {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
